@@ -15,16 +15,18 @@ const CARDS = {
   unionpay: "^62"
 };
 
+const cardPlaceHolder = {
+  amex: "#### ###### #####  ",
+  default: "#### #### #### ####"
+};
+
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardType: "visa",
       focusElementStyle: null,
       currentFocus: null,
       isFocus: false,
-      defaultCardPlaceHolder: "#### #### #### ####",
-      currentPlaceHolder: "",
       cardBackground: this.cardBackground()
     };
   }
@@ -39,6 +41,16 @@ class Card extends Component {
       }
     }
     return "visa";
+  };
+
+  cardPlaceHolder = () => {
+    let { cardNumber } = this.props;
+    let amexPattern = CARDS.amex;
+    let amexRegex = new RegExp(amexPattern);
+    if (cardNumber.match(amexRegex) !== null) {
+      return cardPlaceHolder.amex;
+    }
+    return cardPlaceHolder.default;
   };
 
   cardBackground = () => {
@@ -67,6 +79,7 @@ class Card extends Component {
 
   maskCardNumber(cardNumber) {
     let cardNumberArr = cardNumber.split("");
+
     cardNumberArr.forEach((val, index) => {
       if (index > 4 && index < 14) {
         if (cardNumberArr[index] !== " ") {
@@ -92,7 +105,6 @@ class Card extends Component {
       cardDateRef
     } = this.props;
 
-    let { cardType, defaultCardPlaceHolder } = this.state;
     cardCvv = cardCvv.split("");
     let cardNumberArr = this.maskCardNumber(cardNumber);
 
@@ -156,7 +168,7 @@ class Card extends Component {
               }}
             >
               <TransitionGroup className="slide-fade-up">
-                {[...defaultCardPlaceHolder].map((n, index) => {
+                {[...this.cardPlaceHolder()].map((n, index) => {
                   return (
                     <SwitchTransition in-out key={index}>
                       {cardNumberArr[index] ? (

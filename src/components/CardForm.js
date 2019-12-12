@@ -34,8 +34,17 @@ class CardForm extends Component {
 
   handleNumberChange = e => {
     let value = e.target.value.toString().replace(/\D/g, "");
+    console.log(/^3[47]\w{0,13}$/.test(value));
 
-    if (/^\w{0,16}$/.test(value)) {
+    if (/^3[47]\w{0,13}$/.test(value)) {
+      let newValue = value
+        .replace(/(\w{4})/, "$1 ")
+        .replace(/(\w{4}) (\w{6})/, "$1 $2 ");
+      this.setState({
+        cardNumber: newValue,
+        cardNumberMaxLength: 17
+      });
+    } else if (/^\w{0,16}$/.test(value)) {
       let newValue = value
         .replace(/(\w{4})/, "$1 ")
         .replace(/(\w{4}) (\w{4})/, "$1 $2 ")
