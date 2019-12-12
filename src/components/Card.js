@@ -291,7 +291,7 @@ class Card extends Component {
         <div className="card-item__side -back">
           <div className="card-item__cover">
             <img
-              src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/4.jpeg"
+              src={`images/card-bg/${this.state.cardBackground}.jpeg`}
               className="card-item__bg"
             />
           </div>
@@ -305,7 +305,8 @@ class Card extends Component {
             </div>
             <div className="card-item__type">
               <img
-                src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png"
+                alt={this.cardType()}
+                src={`images/card-type/${this.cardType()}.png`}
                 className="card-item__typeImg"
               />
             </div>
