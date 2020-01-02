@@ -33,8 +33,7 @@ class CardForm extends Component {
   };
 
   handleNumberChange = e => {
-    let value = e.target.value.toString().replace(/\D/g, "");
-    console.log(/^3[47]\w{0,13}$/.test(value));
+    let value = e.target.value.toString().replace(/\D/g, "");    
 
     if (/^3[47]\w{0,13}$/.test(value)) {
       let newValue = value
@@ -138,9 +137,7 @@ class CardForm extends Component {
               onBlur={this.onBlurInput}
               onChange={this.handleNumberChange}
               autoComplete="off"
-            />
-            {/* <button className='card-input__eye' title="Show/Hide card number"
-          tabindex="-1"></button> */}
+            />            
           </div>
           <div className="card-input">
             <label htmlFor="cardName" className="card-input__label">
@@ -198,8 +195,7 @@ class CardForm extends Component {
                   {yearsArr.map(year => (
                     <option>{year}</option>
                   ))}
-                </select>
-                {/* <select name="" id=""></select> */}
+                </select>                
               </div>
             </div>
             <div className="card-form__col -cvv">
